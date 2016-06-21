@@ -71,9 +71,9 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         setContentView(R.layout.activity_main);
         setupTabs();
         setupJob();
-        setupDrawer();
+        //setupDrawer();
         //animate the Toolbar when it comes into the picture
-        AnimationUtils.animateToolbarDroppingDown(mContainerToolbar);
+        //AnimationUtils.animateToolbarDroppingDown(mContainerToolbar);
 
     }
 
@@ -99,6 +99,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
     }
 
     private void setupTabs() {
+        String icons[] = {"Economical","Premium","Coaches"};
         mTabHost = (MaterialTabHost) findViewById(R.id.materialTabHost);
         mPager = (ViewPager) findViewById(R.id.viewPager);
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -115,7 +116,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         for (int i = 0; i < mAdapter.getCount(); i++) {
             mTabHost.addTab(
                     mTabHost.newTab()
-                            .setIcon(mAdapter.getIcon(i))
+                            .setText(icons[i])
                             .setTabListener(this));
         }
     }
@@ -223,9 +224,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        int icons[] = {R.drawable.ic_action_search,
-                R.drawable.ic_action_trending,
-                R.drawable.ic_action_upcoming};
+        String icons[] = {"Economical","Premium","Coaches"};
 
         FragmentManager fragmentManager;
 
@@ -262,8 +261,8 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
             return getResources().getStringArray(R.array.tabs)[position];
         }
 
-        private Drawable getIcon(int position) {
-            return getResources().getDrawable(icons[position]);
+        private String getIconName(int position) {
+            return icons[position];
         }
     }
 } 
