@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,25 +21,20 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 import java.util.List;
 
-import materialtest.vivz.slidenerd.adapters.AdapterMovies;
 import materialtest.vivz.slidenerd.adapters.TaxiServicesAdapter;
 import materialtest.vivz.slidenerd.callbacks.UpcomingMoviesLoadedListener;
-import materialtest.vivz.slidenerd.database.DBMovies;
 import materialtest.vivz.slidenerd.extras.MovieSorter;
 import materialtest.vivz.slidenerd.extras.SortListener;
 import materialtest.vivz.slidenerd.extras.StoreDetailsTaxiServices;
-import materialtest.vivz.slidenerd.logging.L;
-import materialtest.vivz.slidenerd.materialtest.MyApplication;
 import materialtest.vivz.slidenerd.materialtest.R;
 import materialtest.vivz.slidenerd.pojo.Movie;
-import materialtest.vivz.slidenerd.task.TaskLoadUpcomingMovies;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentUpcoming#newInstance} factory method to
+ * Use the {@link FragmentPremiumTaxi#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentUpcoming extends Fragment implements SortListener, UpcomingMoviesLoadedListener {
+public class FragmentPremiumTaxi extends Fragment implements SortListener, UpcomingMoviesLoadedListener {
     //The key used to store arraylist of movie objects to and from parcelable
     private static final String STATE_MOVIES = "state_movies";
     //the arraylist containing our list of box office his
@@ -54,9 +48,12 @@ public class FragmentUpcoming extends Fragment implements SortListener, Upcoming
     //the sorter responsible for sorting our movie results based on choice made by the user in the FAB
     private MovieSorter mSorter = new MovieSorter();
 
-    public static List<StoreDetailsTaxiServices> listArray;
+    public static List<StoreDetailsTaxiServices> listArray2;
 
-    public FragmentUpcoming() {
+    int limit;
+    String taxiType;
+
+    public FragmentPremiumTaxi() {
         // Required empty public constructor
     }
 
@@ -66,11 +63,11 @@ public class FragmentUpcoming extends Fragment implements SortListener, Upcoming
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentUpcoming.
+     * @return A new instance of fragment FragmentEconomicalTaxi.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentUpcoming newInstance(String param1, String param2) {
-        FragmentUpcoming fragment = new FragmentUpcoming();
+    public static FragmentPremiumTaxi newInstance(String param1, String param2) {
+        FragmentPremiumTaxi fragment = new FragmentPremiumTaxi();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -97,18 +94,26 @@ public class FragmentUpcoming extends Fragment implements SortListener, Upcoming
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        listArray = new ArrayList<>();
+        listArray2 = new ArrayList<>();
 
         StoreDetailsTaxiServices storeDetailsTaxiServices = new StoreDetailsTaxiServices();
 
-        storeDetailsTaxiServices.setImageName("1");
-        storeDetailsTaxiServices.setVehicleType("1");
-        storeDetailsTaxiServices.setSeatingCapacity("seating_capacity");
-        storeDetailsTaxiServices.setRatePerDay("rate_per_day");
-        storeDetailsTaxiServices.setRatePerAdditionalKm("rate_per_additional_km");
-        storeDetailsTaxiServices.setAllowedKmPerDay("allowed_km_per_day");
 
-        listArray.add(storeDetailsTaxiServices);
+
+
+
+
+        for(int i =0;i<5;i++) {
+
+            storeDetailsTaxiServices.setImageName("1");
+            storeDetailsTaxiServices.setVehicleType("1");
+            storeDetailsTaxiServices.setSeatingCapacity("seating_capacity");
+            storeDetailsTaxiServices.setRatePerDay("rate_per_day");
+            storeDetailsTaxiServices.setRatePerAdditionalKm("rate_per_additional_km");
+            storeDetailsTaxiServices.setAllowedKmPerDay("allowed_km_per_day");
+
+            listArray2.add(storeDetailsTaxiServices);
+        }
         //mAdapter.notifyDataSetChanged();
 
 
@@ -118,7 +123,7 @@ public class FragmentUpcoming extends Fragment implements SortListener, Upcoming
         mRecyclerMovies = (RecyclerView) layout.findViewById(R.id.listMovieUpcoming);
         //set the layout manager before trying to display data
         mRecyclerMovies.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new TaxiServicesAdapter(listArray,getActivity());
+        mAdapter = new TaxiServicesAdapter(listArray2,getActivity());
         mRecyclerMovies.setAdapter(mAdapter);
 
 //        if (savedInstanceState != null) {
@@ -129,7 +134,7 @@ public class FragmentUpcoming extends Fragment implements SortListener, Upcoming
 //            mListMovies = MyApplication.getWritableDatabase().readMovies(DBMovies.UPCOMING);
 //            //if the database is empty, trigger an AsycnTask to download movie list from the web
 //            if (mListMovies.isEmpty()) {
-//                L.m("FragmentUpcoming: executing task from fragment");
+//                L.m("FragmentEconomicalTaxi: executing task from fragment");
 //                new TaskLoadUpcomingMovies(this).execute();
 //            }
 //        }

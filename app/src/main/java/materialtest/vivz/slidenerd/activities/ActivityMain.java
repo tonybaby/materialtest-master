@@ -3,7 +3,6 @@ package materialtest.vivz.slidenerd.activities;
 
 import android.content.ComponentName;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -17,21 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
-import materialtest.vivz.slidenerd.anim.AnimationUtils;
-import materialtest.vivz.slidenerd.extras.SortListener;
-import materialtest.vivz.slidenerd.fragments.FragmentBoxOffice;
+import materialtest.vivz.slidenerd.fragments.FragmentCoachesTaxi;
+import materialtest.vivz.slidenerd.fragments.FragmentEconomicalTaxi;
+import materialtest.vivz.slidenerd.fragments.FragmentPremiumTaxi;
 import materialtest.vivz.slidenerd.fragments.FragmentDrawer;
-import materialtest.vivz.slidenerd.fragments.FragmentSearch;
-import materialtest.vivz.slidenerd.fragments.FragmentUpcoming;
 import materialtest.vivz.slidenerd.logging.L;
 import materialtest.vivz.slidenerd.materialtest.R;
 import materialtest.vivz.slidenerd.services.ServiceMoviesBoxOffice;
@@ -42,11 +37,11 @@ import me.tatarka.support.job.JobScheduler;
 public class ActivityMain extends ActionBarActivity implements MaterialTabListener {
 
     //int representing our 0th tab corresponding to the Fragment where search results are dispalyed
-    public static final int TAB_SEARCH_RESULTS = 0;
+    public static final int ECONOMICAL = 0;
     //int corresponding to our 1st tab corresponding to the Fragment where box office hits are dispalyed
-    public static final int TAB_HITS = 1;
+    public static final int PREMIUM = 1;
     //int corresponding to our 2nd tab corresponding to the Fragment where upcoming movies are displayed
-    public static final int TAB_UPCOMING = 2;
+    public static final int COACHES = 2;
     //int corresponding to the number of tabs in our Activity
     public static final int TAB_COUNT = 3;
     //int corresponding to the id of our JobSchedulerService
@@ -225,6 +220,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         String icons[] = {"Economical","Premium","Coaches"};
+        String url;
 
         FragmentManager fragmentManager;
 
@@ -236,17 +232,23 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         public Fragment getItem(int num) {
             Fragment fragment = null;
 //            L.m("getItem called for " + num);
+
+
             switch (num) {
-                case TAB_SEARCH_RESULTS:
-                    fragment = FragmentSearch.newInstance("", "");
+                case ECONOMICAL:
+
+                    fragment = FragmentEconomicalTaxi.newInstance("","");
+
                     break;
-                case TAB_HITS:
-                    fragment = FragmentBoxOffice.newInstance("", "");
+                case PREMIUM:
+
+                    fragment = FragmentPremiumTaxi.newInstance("","");
                     break;
-                case TAB_UPCOMING:
-                    fragment = FragmentUpcoming.newInstance("", "");
+                case COACHES:
+                    fragment = FragmentCoachesTaxi.newInstance("","");
                     break;
             }
+
             return fragment;
 
         }

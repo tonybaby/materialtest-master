@@ -2,7 +2,6 @@ package materialtest.vivz.slidenerd.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import materialtest.vivz.slidenerd.materialtest.R;
 /**
  * Created by HP on 3/18/2016.
  */
-public class TaxiServicesAdapter extends RecyclerView.Adapter<TaxiServicesAdapter.ViewHolder> {
+public class TaxiServicesAdapterEcomonical extends RecyclerView.Adapter<TaxiServicesAdapterEcomonical.ViewHolder> {
 
 
 
@@ -30,7 +29,7 @@ public class TaxiServicesAdapter extends RecyclerView.Adapter<TaxiServicesAdapte
     private int mPreviousPosition = 0;
 
     //Constructor of this class
-    public TaxiServicesAdapter(List<StoreDetailsTaxiServices> Details, Context context){
+    public TaxiServicesAdapterEcomonical(List<StoreDetailsTaxiServices> Details, Context context){
         super();
         //Getting all
         this.Details = Details;
